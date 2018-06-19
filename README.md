@@ -21,11 +21,8 @@ $apiKey = getenv('SENDGRID_API_KEY');
 // SendGrid Client
 $sendgrid = new SendGrid($apiKey);
 
-// EventDispatcher
-$eventDispatcher = new Swift_Events_SimpleEventDispatcher();
-
 // SendGrid Transport
-$transport = new SendGridTransport($sendgrid, $eventDispatcher);
+$transport = new SendGridTransport($sendgrid);
 
 // Create the Mailer using your created Transport
 $mailer = new Swift_Mailer($transport);

@@ -14,6 +14,8 @@ use Swift_Mime_SimpleMessage;
 use Swift_Transport;
 use Swift_Events_SendEvent;
 use Swift_Events_EventDispatcher;
+use Swift_DependencyContainer;
+use Swift_DependencyException;
 
 /**
  * Class SendGridTransport
@@ -40,11 +42,15 @@ class SendGridTransport implements Swift_Transport
     /**
      * SendgridTransport constructor.
      * @param SendGrid $client
-     * @param Swift_Events_EventDispatcher $eventDispatcher
+     * @param null|Swift_Events_EventDispatcher $eventDispatcher
+     * @throws Swift_DependencyException
      */
-    public function __construct(SendGrid $client, Swift_Events_EventDispatcher $eventDispatcher)
+    public function __construct(SendGrid $client, ?Swift_Events_EventDispatcher $eventDispatcher = null)
     {
         $this->client = $client;
+        if (null === $eventDispatcher) {
+            $eventDispatcher = Swift_DependencyContainer::getInstance()->lookup('transport.eventdispatcher');
+        }
         $this->eventDispatcher = $eventDispatcher;
     }
 
