@@ -1,2 +1,6 @@
-# swiftmailer-transport-sendgrid
-SwiftMailer Transport Sendgrid
+# SwiftMailer Sendgrid Transport
+
+## Installation
+
+`composer require kardasz/swiftmailer-transport-sendgrid`
+
