@@ -132,6 +132,11 @@ class SendGridTransport implements Swift_Transport
         $email->setSubject($message->getSubject());
         $email->addContent($message->getContentType(), $message->getBody());
 
+        $children = $message->getChildren();
+        foreach ($children as $child) {
+            $email->addContent($child->getContentType(), $child->getBody());
+        }
+
         $response = $this->client->send($email);
 
         if (202 === $response->statusCode()) {
